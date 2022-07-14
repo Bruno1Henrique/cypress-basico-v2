@@ -2,6 +2,8 @@
 
 
 
+
+
 describe('Central de Atendimento ao Cliente TAT', function() {
 
     let text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
@@ -13,7 +15,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     it('verifica o título da aplicação', function() {
         cy.title().should('be.equal','Central de Atendimento ao Cliente TAT')
     })
-    it.only('preenche os campos obrigatórios e envia o formulário', () => {
+    it('preenche os campos obrigatórios e envia o formulário', () => {
 
 
         cy.get('#firstName').type('Bruno Henrique')
@@ -81,5 +83,43 @@ describe('Central de Atendimento ao Cliente TAT', function() {
 
        cy.get('.success').should('be.visible')
     });
+
+    //Campos de seleção suspensa
+
+    //Selecionando campo pelo texto
+    it('seleciona um produto (YouTube) por seu texto', () => {
+        cy.get('#product').select('YouTube').should('have.value','youtube')
+    });
+
+    //Selecionando produto pelo value
+    it('seleciona um produto (Mentoria) por seu valor (value)', () => {
+        cy.get('#product').select('mentoria').should('have.value','mentoria')
+    });
+
+    it('seleciona um produto (Blog) por seu índice', () => {
+        cy.get('#product').select(1).should('have.value','blog')
+    });
+
+    //Selecionando campos do tipo radio
+    it('marca o tipo de atendimento "Ajuda"', () => {
+        cy.get('input[type="radio"][value="ajuda"]').check().should('have.value','ajuda')  
+       
+    });
+
+    it('marca o tipo de atendimento "Elogio', () => {
+        cy.get('input[type="radio"]').check('elogio').should('have.value','elogio')
+    });
+
+    it('marca o tipo de atendimento "Feedback', () => {
+        cy.get('input[type="radio"]').check('feedback').should('have.value','feedback')
+    });
+
+    it.only('marca cada tipo de atendimento', () => {
+        cy.get('input[type="radio"]').should('have.length',3)
+        .each(function($radio){
+            cy.wrap($radio).check()
+            cy.wrap($radio).should('be.checked')
+        })
+    })
 })
   
