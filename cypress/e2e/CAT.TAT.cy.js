@@ -1,9 +1,5 @@
 /// <reference types="Cypress" />
 
-
-
-
-
 describe('Central de Atendimento ao Cliente TAT', function() {
 
     let text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
@@ -43,7 +39,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         .should('have.value','')
     });
 
-    it.only('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', () => {
+    it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', () => {
 
         cy.get('#firstName').type('Bruno Henrique')
         cy.get('#lastName').type('Pedroso')
@@ -128,6 +124,39 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         //cy.get('#phone-checkbox').check().should('be.checked')
        cy.get('input[type="checkbox"]').check().should('be.checked').last().uncheck().should('not.be.checked')
     });
+
+    //Selecionando arquivos com Cypress
+    it('seleciona um arquivo da pasta fixtures', () => {
+        cy.get('input[type="file"]#file-upload')
+        .should('not.have.value')
+        .selectFile('cypress/fixtures/example.json')
+        .should(function(input){
+            expect(input[0].files[0].name).to.equal('example.json')
+        })
+          //Pode ser feito do jeito abaixo também
+         //  .then(input=> {
+        //     console.log(input)
+       //     expect(input[0].files[0].name).to.equal('example.json')
+      //  })
+    })
+
+    it('seleciona um arquivo simulando um drag-and-drop', () => {
+        cy.get('input[type="file"]').selectFile('cypress/fixtures/example.json', { action: 'drag-drop' })
+        .then(input=>{
+            expect(input[0].files[0].name).to.equal('example.json')
+        })
+    })
+
+    it.only('Seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', () => {
+        cy.fixture('example.json').as('sampleFile')
+        cy.get('input[type="file"]')
+        .selectFile('@sampleFile')
+        .should(function(input){
+            expect(input[0].files[0].name).to.equal('example.json')
+        })
+    })
+    
+    
 
 })
   
