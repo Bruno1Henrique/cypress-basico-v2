@@ -1,3 +1,5 @@
+//Se refere a aula https://www.youtube.com/watch?v=bqz7sv-LgrM&t=1459s
+
 let searchTerm = 'cypress.io'
 
 describe('Procurar', () => {
@@ -27,6 +29,8 @@ describe('Procurar', () => {
     it('Digita e clica na lupa', () => {
         cy.get('@searchField')
         .type(`${searchTerm}{enter}`)
+      
+      
         cy.get('input[type="submit"]')
         .should('be.visible')
         .click()
