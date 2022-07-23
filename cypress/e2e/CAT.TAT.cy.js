@@ -2,7 +2,7 @@
 
 describe('Central de Atendimento ao Cliente TAT', function() {
     const tres_segundos = 3000
-    let text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+    let text = Cypress._.repeat('Lorem ipsum dolor sit amet',5)
 
     beforeEach(function(){
         cy.visit('./src/index.html')
@@ -11,7 +11,10 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     it('verifica o título da aplicação', function() {
         cy.title().should('be.equal','Central de Atendimento ao Cliente TAT')
     })
-    it('preenche os campos obrigatórios e envia o formulário', () => {
+    
+    
+    Cypress._.times(5, () => { //Faz 5 vezes o mesmo teste por exemplo, provar que esta estavel
+    it.only('preenche os campos obrigatórios e envia o formulário', () => {
         cy.clock()
         cy.get('#firstName').type('Bruno Henrique')
         cy.get('#lastName').type('Pedroso')
@@ -25,6 +28,9 @@ describe('Central de Atendimento ao Cliente TAT', function() {
 
 
     });
+
+});
+
 
     it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', () => {
         cy.clock()
