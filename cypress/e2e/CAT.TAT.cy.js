@@ -14,7 +14,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     
     
     Cypress._.times(5, () => { //Faz 5 vezes o mesmo teste por exemplo, provar que esta estavel
-    it.only('preenche os campos obrigatórios e envia o formulário', () => {
+    it('preenche os campos obrigatórios e envia o formulário', () => {
         cy.clock()
         cy.get('#firstName').type('Bruno Henrique')
         cy.get('#lastName').type('Pedroso')
@@ -189,6 +189,50 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.contains('Talking About Testing').should('be.visible')
     })
     
+    it('exibe e esconde as mensagens de sucesso e erro usando o .invoke', () => {
+        cy.get('.success')
+          .should('not.be.visible')
+          .invoke('show')
+          .should('be.visible')
+          .and('contain', 'Mensagem enviada com sucesso.')
+          .invoke('hide')
+          .should('not.be.visible')
+        cy.get('.error')
+          .should('not.be.visible')
+          .invoke('show')
+          .should('be.visible')
+          .and('contain', 'Valide os campos obrigatórios!')
+          .invoke('hide')
+          .should('not.be.visible')
+      })
+
+    it('preenche a area de texto usando o comando invoke', () => {
+        const longText = Cypress._.repeat('0123456789', 20)
+        
+        cy.get('#open-text-area')
+        .invoke('val', longText)
+        .should('have.value', longText)
+    });
+
+    it('faz uma requisição HTTP', () => {
+        cy.request({
+            method: 'GET',
+            url: 'https://cac-tat.s3.eu-central-1.amazonaws.com/index.html'
+        }).then((Response)=>{
+            expect(Response.status).to.equal(200);
+            expect(Response.statusText).to.equal('OK')
+            expect(Response.body).to.include('CAC TAT')
+        })
+    })
+
+    it.only('onde esta o gato', () => {
+        cy.get('#cat').invoke('show').should('be.visible')
+    cy.get('#title')
+        .invoke('text','CAT TAT')
+    cy.get('#subtitle')
+        .invoke('text','Eu ❤️ gatos')
+    });
+
 
 })
   
