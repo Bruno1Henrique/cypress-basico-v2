@@ -14,7 +14,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     
     
     Cypress._.times(5, () => { //Faz 5 vezes o mesmo teste por exemplo, provar que esta estavel
-    it('preenche os campos obrigatórios e envia o formulário', () => {
+    it.only('preenche os campos obrigatórios e envia o formulário', () => {
         cy.clock()
         cy.get('#firstName').type('Bruno Henrique')
         cy.get('#lastName').type('Pedroso')
@@ -25,12 +25,9 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('.success').should('be.visible')
         cy.tick(tres_segundos)
         cy.get('.success').should('not.be.visible')
-
-
     });
 
 });
-
 
     it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', () => {
         cy.clock()
