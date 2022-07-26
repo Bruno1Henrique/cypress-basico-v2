@@ -14,7 +14,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     
     
     Cypress._.times(5, () => { //Faz 5 vezes o mesmo teste por exemplo, provar que esta estavel
-    it.only('preenche os campos obrigatórios e envia o formulário', () => {
+    it('preenche os campos obrigatórios e envia o formulário', () => {
         cy.clock()
         cy.get('#firstName').type('Bruno Henrique')
         cy.get('#lastName').type('Pedroso')
