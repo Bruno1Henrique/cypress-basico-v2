@@ -47,8 +47,8 @@ describe('Age finder', () => {
     })
   
     context('Empty date', () => {
-      it.only('does not show paragraph when clearing the date', () => {
-        cy.setDate('2022-07-20')
+      it('does not show paragraph when clearing the date', () => {
+        cy.setDate('2023-07-20')
         cy.contains('p', 'Are you from the future?')
           .should('be.visible')
   
