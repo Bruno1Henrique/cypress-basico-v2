@@ -8,13 +8,14 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.visit('./src/index.html')
     })
 
-    it('verifica o título da aplicação', function() {
+    //Verificar o titulo do HTML
+    it.only('verifica o título da aplicação', function() {
         cy.title().should('be.equal','Central de Atendimento ao Cliente TAT')
     })
     
     
     Cypress._.times(5, () => { //Faz 5 vezes o mesmo teste por exemplo, provar que esta estavel
-    it.only('preenche os campos obrigatórios e envia o formulário', () => {
+    it('preenche os campos obrigatórios e envia o formulário', () => {
         cy.clock()
         cy.get('#firstName').type('Bruno Henrique')
         cy.get('#lastName').type('Pedroso')
