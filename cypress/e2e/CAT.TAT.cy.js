@@ -2,25 +2,25 @@
 
 describe('Central de Atendimento ao Cliente TAT', function() {
     const tres_segundos = 3000
-    let text = Cypress._.repeat('Lorem ipsum dolor sit amet',5)
+    const text = Cypress._.repeat('Lorem ipsum dolor sit amet',1)
 
     beforeEach(function(){
         cy.visit('./src/index.html')
     })
 
     //Verificar o titulo do HTML
-    it.only('verifica o título da aplicação', function() {
+    it('verifica o título da aplicação', function() {
         cy.title().should('be.equal','Central de Atendimento ao Cliente TAT')
     })
     
-    
+    //Comeca a preencher o formulario
     Cypress._.times(5, () => { //Faz 5 vezes o mesmo teste por exemplo, provar que esta estavel
     it('preenche os campos obrigatórios e envia o formulário', () => {
         cy.clock()
-        cy.get('#firstName').type('Bruno Henrique')
+        cy.get('#firstName').type('Bruno Henrique').should('have.value', 'Bruno Henrique')
         cy.get('#lastName').type('Pedroso')
         cy.get('#email').type('henrique@compufour.com.br')
-        cy.get('#open-text-area').type(text, {delay: 0})
+        cy.get('#open-text-area').type(text, {delay: 10})
         cy.contains('button', 'Enviar').click()
 
         cy.get('.success').should('be.visible')
@@ -36,7 +36,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('#lastName').type('Pedroso')
         cy.get('#email').type('henrique@compufour,com.br') //Aqui o email está com virgula
         cy.get('#open-text-area').type('Teste')
-        cy.contains('button', 'Enviar').click()
+        cy.contains('button[type="submit"]', 'Enviar').click()
 
         cy.get('.error').should('be.visible')
         cy.tick(tres_segundos)
@@ -108,11 +108,12 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     });
 
     //Selecionando produto pelo value
-    it('seleciona um produto (Mentoria) por seu valor (value)', () => {
+    it.only('seleciona um produto (mentoria) por seu valor (value)', () => {
         cy.get('#product').select('mentoria').should('have.value','mentoria')
     });
 
-    it('seleciona um produto (Blog) por seu índice', () => {
+    //Selecionando o campo pelo id
+    it.only('seleciona um produto (Blog) por seu índice', () => {
         cy.get('#product').select(1).should('have.value','blog')
     });
 
