@@ -16,7 +16,7 @@ describe('Procurar', () => {
         .as('searchField')
         .should('be.visible')
     })
-    it('Digita e pressionar Enter', () => {
+    it.skip('Digita e pressionar Enter', () => {
         cy.get('@searchField')
         .type(`${searchTerm}{enter}`)
 
@@ -26,7 +26,7 @@ describe('Procurar', () => {
         .should('have.length',1)
     });
 
-    it('Digita e clica na lupa', () => {
+    it.skip('Digita e clica na lupa', () => {
         cy.get('@searchField')
         .type(`${searchTerm}{enter}`)
       
@@ -41,7 +41,7 @@ describe('Procurar', () => {
         .should('have.length',1)
     });
 
-    it.only('Digita e submete o formulario diretamente', () => {
+    it.skip('Digita e submete o formulario diretamente', () => {
         cy.get('@searchField')
         .type(`${searchTerm}{enter}`)
         cy.get('form').submit()
