@@ -108,12 +108,12 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     });
 
     //Selecionando produto pelo value
-    it.only('seleciona um produto (mentoria) por seu valor (value)', () => {
+    it('seleciona um produto (mentoria) por seu valor (value)', () => {
         cy.get('#product').select('mentoria').should('have.value','mentoria')
     });
 
     //Selecionando o campo pelo id
-    it.only('seleciona um produto (Blog) por seu índice', () => {
+    it('seleciona um produto (Blog) por seu índice', () => {
         cy.get('#product').select(1).should('have.value','blog')
     });
 
@@ -143,7 +143,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     it('marca ambos checkboxes, depois desmarca o último', () => {
         //cy.get('#email-checkbox').check().should('be.checked') //Da pra fazer assim também
         //cy.get('#phone-checkbox').check().should('be.checked')
-       cy.get('input[type="checkbox"]').check().should('be.checked').last().uncheck().should('not.be.checked')
+          cy.get('input[type="checkbox"]').check().should('be.checked').last()/*Last e para desmarcar o ultimo*/.uncheck().should('not.be.checked') //Apos ter marcado ele vai desmarcar e ver se esta desmarcado
     });
 
     //Selecionando arquivos com Cypress
@@ -168,6 +168,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         })
     })
 
+    //Da um apelido para o arquivo para nao precisar passar todo o caminho
     it('Seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', () => {
         cy.fixture('example.json').as('sampleFile')
         cy.get('input[type="file"]')
@@ -188,7 +189,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.contains('Talking About Testing').should('be.visible')
     })
     
-    it('exibe e esconde as mensagens de sucesso e erro usando o .invoke', () => {
+    it.only('exibe e esconde as mensagens de sucesso e erro usando o .invoke', () => {
         cy.get('.success')
           .should('not.be.visible')
           .invoke('show')
