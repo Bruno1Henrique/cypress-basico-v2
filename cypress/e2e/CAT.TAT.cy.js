@@ -30,7 +30,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
 
 });
 
-    it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', () => {
+    it.only('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', () => {
         cy.clock()
         cy.get('#firstName').type('Bruno Henrique')
         cy.get('#lastName').type('Pedroso')
@@ -189,7 +189,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.contains('Talking About Testing').should('be.visible')
     })
     
-    it('exibe e esconde as mensagens de sucesso e erro usando o .invoke', () => {
+    it.only('exibe e esconde as mensagens de sucesso e erro usando o .invoke', () => {
         cy.get('.success')
           .should('not.be.visible')
           .invoke('show')
